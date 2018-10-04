@@ -1,0 +1,9 @@
+2018-10-04:
+------------------------------------
+Google project created.
+microphone and speakers ordered
+next step: setup audio on raspberry and put into option
+
+2018-10-03: 
+------------------------------------
+project created and repo set up
