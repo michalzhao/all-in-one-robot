@@ -4,8 +4,8 @@ version 0.0
 
 change history
 -------------------------------------------------------------------------------
-version  | author          |  date        |  change
-0.0      | Dr. Yulong Zhao |  2018/10/03  |  initial version of SW architecture
+version  | author    |  date        |  change
+0.0      | Dr. Y     |  2018/10/03  |  initial version of SW architecture
 
 ################################################################################
 
