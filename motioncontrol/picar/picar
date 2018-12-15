@@ -1,0 +1,39 @@
+#!/bin/bash
+echo ==============================================
+echo This is a wrapper to start the python script
+echo picar.py, which contorls the picar
+echo Author: Dr.Y 
+echo Date:   2018-12-15
+echo Email: realfmt2004@gmail.com
+echo ==============================================
+
+# check input argument
+if [ "$1" != "" ]; then
+    echo "run with argument $1 ..."
+	echo "------------------------------------"
+else
+    echo "no argument is given! I need at least one argument!"
+    sudo python3 picar.py -h
+    exit 1
+fi
+
+
+case $1 in
+    -h | --help )           sudo python3 picar.py -h
+                                ;;
+    -m | --move )           sudo python3 picar.py -m
+							echo "run successfully"
+                                ;;
+    -b | --back )           sudo python3 picar.py -b
+							echo "run successfully"
+                                ;;
+    -l | --left )           sudo python3 picar.py -l
+							echo "run successfully"
+                                ;;
+    -r | --right )          sudo python3 picar.py -r
+							echo "run successfully"
+                                ;;
+    * )                     echo "Please refer to Help"
+    	                    sudo python3 picar.py -h
+                       	    exit 1
+esac
