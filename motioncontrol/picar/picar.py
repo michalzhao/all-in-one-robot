@@ -22,14 +22,12 @@ spotturn = "false"
 # motors' speed initial to 0
 MAXSPEED = 100
 MAXSTEERSPEED = 50
-motorDriveForwardPin = 4 #7
-motorDriveReversePin = 17 #11
-motorSteerLeftPin = 27 #13
-motorSteerRightPin = 22 #15
-ledLeftPin = 23 #16
-ledRightPin = 24 #18
-motorDrivePWM = 5 #29
-motorSteerPWM = 6 #31
+motorDriveForwardPin = 6 #29
+motorDriveReversePin = 5 #31
+motorSteerLeftPin = 13 #33
+motorSteerRightPin = 19 #35
+motorDrivePWM = 20 #38
+motorSteerPWM = 21 #40
 
 #setup function is called automatically at WebIoPi startup
 def setup():
@@ -37,8 +35,6 @@ def setup():
 	GPIO.setFunction(motorDriveReversePin, GPIO.OUT)
 	GPIO.setFunction(motorSteerLeftPin, GPIO.OUT)
 	GPIO.setFunction(motorSteerRightPin, GPIO.OUT)
-	GPIO.setFunction(ledLeftPin, GPIO.OUT)
-	GPIO.setFunction(ledRightPin, GPIO.OUT)
 	GPIO.setFunction(motorDrivePWM, GPIO.PWM)
 	GPIO.setFunction(motorSteerPWM, GPIO.PWM)
 
@@ -67,49 +63,32 @@ def reverse():
     GPIO.digitalWrite(motorDriveForwardPin, GPIO.LOW)
     GPIO.digitalWrite(motorDriveReversePin, GPIO.HIGH)
 	
-def  forward():
+def forward():
     GPIO.digitalWrite(motorDriveForwardPin, GPIO.HIGH)
     GPIO.digitalWrite(motorDriveReversePin, GPIO.LOW)
 
-def  left():
+def left():
     GPIO.digitalWrite(motorSteerLeftPin, GPIO.HIGH)
     GPIO.digitalWrite(motorSteerRightPin, GPIO.LOW)
-    GPIO.digitalWrite(ledLeftPin, GPIO.HIGH)
-    GPIO.digitalWrite(ledRightPin, GPIO.LOW)    
 
-def  right():
+def right():
     GPIO.digitalWrite(motorSteerLeftPin, GPIO.LOW)
     GPIO.digitalWrite(motorSteerRightPin, GPIO.HIGH)
-    GPIO.digitalWrite(ledLeftPin, GPIO.LOW)
-    GPIO.digitalWrite(ledRightPin, GPIO.HIGH)
 
 def resetSteer():
 	GPIO.digitalWrite(motorSteerLeftPin, GPIO.LOW)
 	GPIO.digitalWrite(motorSteerRightPin, GPIO.LOW)
-	GPIO.digitalWrite(ledLeftPin, GPIO.LOW)
-	GPIO.digitalWrite(ledRightPin, GPIO.LOW)
 
-def flashAll():	
-	GPIO.digitalWrite(ledLeftPin, GPIO.HIGH)
-	GPIO.digitalWrite(ledRightPin, GPIO.HIGH)
-	sleep(0.5)
-	GPIO.digitalWrite(ledLeftPin, GPIO.LOW)
-	GPIO.digitalWrite(ledRightPin, GPIO.LOW)
-	sleep(0.5)
-	GPIO.digitalWrite(ledLeftPin, GPIO.HIGH)
-	GPIO.digitalWrite(ledRightPin, GPIO.HIGH)
-	sleep(0.5)
-	GPIO.digitalWrite(ledLeftPin, GPIO.LOW)
-	GPIO.digitalWrite(ledRightPin, GPIO.LOW)
-
+def resetSpeed():
+	GPIO.digitalWrite(motorDriveForwardPin, GPIO.LOW)
+	GPIO.digitalWrite(motorDriveReversePin, GPIO.LOW)
+	
 # stop the motors
 def stop():
 	GPIO.digitalWrite(motorDriveForwardPin, GPIO.LOW)
 	GPIO.digitalWrite(motorDriveReversePin, GPIO.LOW)
 	GPIO.digitalWrite(motorSteerLeftPin, GPIO.LOW)
 	GPIO.digitalWrite(motorSteerRightPin, GPIO.LOW)
-	GPIO.digitalWrite(ledLeftPin, GPIO.LOW)
-	GPIO.digitalWrite(ledRightPin, GPIO.LOW)
 	# motorLspeed, motorRspeed, acceleration
 	initiate()
 	return 0, 0, 0
@@ -118,8 +97,6 @@ def stop():
 def stopSteer():
 	GPIO.digitalWrite(motorSteerLeftPin, GPIO.LOW)
 	GPIO.digitalWrite(motorSteerRightPin, GPIO.LOW)
-	GPIO.digitalWrite(ledLeftPin, GPIO.LOW)
-	GPIO.digitalWrite(ledRightPin, GPIO.LOW)
 
 
 # This functions sets the motor speed.
@@ -250,6 +227,7 @@ def ButtonForward():
 	valueDrive =  float(motorDriveSpeed)/100
 		
 	GPIO.pulseRatio(motorDrivePWM, valueDrive)
+
 	
 def ButtonReverse():
 	backwardAcc = 0
@@ -263,7 +241,7 @@ def ButtonReverse():
 	valueDrive = float(motorDriveSpeed)/100
 		
 	GPIO.pulseRatio(motorDrivePWM, valueDrive)
-
+	
 
 def ButtonTurnLeft():
 	left()
@@ -319,7 +297,6 @@ def ButtonFlashAll():
 
 def ButtonStop():	
 	stop()
-	flashAll()
 
 def showhelp():
 	print ("Usage: %s [-h] [-m] [-b] [-l] [-r]" % (sys.argv[0]))
@@ -354,14 +331,24 @@ def main():
 			showhelp()
 		elif currentArgument in ("-m", "--move"):
 			print ("moving forward")
-			for i in range(100):
+			for i in range(20):
+				sleep(0.2)
 				ButtonForward()
+			ButtonStop()
 		elif currentArgument in ("-b", "--back"):
 			print ("moving back")
+			for i in range(20):
+				sleep(0.2)
+				ButtonReverse()
+			ButtonStop()
 		elif currentArgument in ("-l", "--left"):
 			print ("turning left")
+			ButtonTurnLeft()
+			ButtonStop()
 		elif currentArgument in ("-r", "--right"):
 			print ("turning right")
+			ButtonTurnRight()
+			ButtonStop()
 	
 if __name__ == "__main__":
 	main()
