@@ -7,33 +7,36 @@ echo Date:   2018-12-15
 echo Email: realfmt2004@gmail.com
 echo ==============================================
 
+# set path to picar
+picarPath=/home/pi/scripts/piCar
+
 # check input argument
 if [ "$1" != "" ]; then
     echo "run with argument $1 ..."
 	echo "------------------------------------"
 else
     echo "no argument is given! I need at least one argument!"
-    sudo python3 picar.py -h
+    sudo python3 $picarPath/picar.py -h
     exit 1
 fi
 
 
 case $1 in
-    -h | --help )           sudo python3 picar.py -h
+    -h | --help )           sudo python3 $picarPath/picar.py -h
                                 ;;
-    -m | --move )           sudo python3 picar.py -m
+    -m | --move )           sudo python3 $picarPath/picar.py -m
 							echo "run successfully"
                                 ;;
-    -b | --back )           sudo python3 picar.py -b
+    -b | --back )           sudo python3 $picarPath/picar.py -b
 							echo "run successfully"
                                 ;;
-    -l | --left )           sudo python3 picar.py -l
+    -l | --left )           sudo python3 $picarPath/picar.py -l
 							echo "run successfully"
                                 ;;
-    -r | --right )          sudo python3 picar.py -r
+    -r | --right )          sudo python3 $picarPath/picar.py -r
 							echo "run successfully"
                                 ;;
     * )                     echo "Please refer to Help"
-    	                    sudo python3 picar.py -h
+    	                    sudo python3 $picarPath/picar.py -h
                        	    exit 1
 esac
