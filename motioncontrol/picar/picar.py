@@ -248,7 +248,15 @@ def ButtonTurnLeft():
 	GPIO.pulseRatio(motorSteerPWM, 0.7)	
 	sleep(0.3)
 	resetSteer()
+	
+def TurnLeft():
+	left()
+	GPIO.pulseRatio(motorSteerPWM, 0.7)	
 
+def TurnRight():
+	right()
+	GPIO.pulseRatio(motorSteerPWM, 0.7)
+	
 def ButtonTurnRight():
 	right()
 	GPIO.pulseRatio(motorSteerPWM, 0.7)
@@ -299,12 +307,13 @@ def ButtonStop():
 	stop()
 
 def showhelp():
-	print ("Usage: %s [-h] [-m] [-b] [-l] [-r]" % (sys.argv[0]))
+	print ("Usage: %s [-h] [-m] [-b] [-l] [-r] [-a]" % (sys.argv[0]))
 	print ("-h --help show help")
 	print ("-m --move move forward")
 	print ("-b --back move backward")
 	print ("-l --left turn left")
 	print ("-r --right turn right")
+	print ("-a --auto show demo")
 	print ("Example1: ./picar -m")
 	print ("Example2: sudo python3 picar.py -m")
 	
@@ -315,8 +324,8 @@ def main():
 	initiate()
 	argumentList = sys.argv[1:]
 	#print (len(argumentList))
-	unixOptions = "hmblro:v"  
-	gnuOptions = ["help", "move", "back", "left", "right"]
+	unixOptions = "hmblrao:v"  
+	gnuOptions = ["help", "move", "back", "left", "right", "auto"]
 	
 	try:  
 		arguments, values = getopt.getopt(argumentList, unixOptions, gnuOptions)
@@ -349,6 +358,26 @@ def main():
 			print ("turning right")
 			ButtonTurnRight()
 			ButtonStop()
-	
+		elif currentArgument in ("-a", "--auto"):
+			print ("show a demo")
+			for i in range(10):
+				sleep(0.1)
+				ButtonForward()
+				TurnLeft()
+			resetSteer()
+			for i in range(10):
+				sleep(0.1)
+				ButtonForward()
+			for i in range(10):
+				sleep(0.1)
+				ButtonForward()
+				TurnLeft()
+			resetSteer()
+			for i in range(10):
+				sleep(0.1)
+				ButtonForward()
+			ButtonStop()
+				
+				
 if __name__ == "__main__":
 	main()
