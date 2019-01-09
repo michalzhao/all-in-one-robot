@@ -36,8 +36,9 @@ case $1 in
     -r | --right )          sudo python3 $picarPath/picar.py -r
 							echo "run successfully"
                                 ;;
-	-a | --auto )           sudo python3 $picarPath/picar.py -a
+    -a | --auto )           sudo python3 $picarPath/picar.py -a
 							echo "run successfully"
+							tts "how about that!?"
                                 ;;
     * )                     echo "Please refer to Help"
     	                    sudo python3 $picarPath/picar.py -h
