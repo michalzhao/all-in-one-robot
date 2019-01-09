@@ -340,14 +340,14 @@ def main():
 			showhelp()
 		elif currentArgument in ("-m", "--move"):
 			print ("moving forward")
-			for i in range(20):
-				sleep(0.2)
+			for i in range(15):
+				sleep(0.1)
 				ButtonForward()
 			ButtonStop()
 		elif currentArgument in ("-b", "--back"):
 			print ("moving back")
-			for i in range(20):
-				sleep(0.2)
+			for i in range(15):
+				sleep(0.1)
 				ButtonReverse()
 			ButtonStop()
 		elif currentArgument in ("-l", "--left"):
@@ -360,22 +360,21 @@ def main():
 			ButtonStop()
 		elif currentArgument in ("-a", "--auto"):
 			print ("show a demo")
-			for i in range(10):
+			for i in range(15):
 				sleep(0.1)
 				ButtonForward()
-				TurnLeft()
-			resetSteer()
-			for i in range(10):
+			ButtonStop()
+			for i in range(15):
+				sleep(0.1)
+				ButtonReverse()
+			ButtonStop()
+			for i in range(15):
 				sleep(0.1)
 				ButtonForward()
-			for i in range(10):
+			ButtonStop()
+			for i in range(15):
 				sleep(0.1)
-				ButtonForward()
-				TurnLeft()
-			resetSteer()
-			for i in range(10):
-				sleep(0.1)
-				ButtonForward()
+				ButtonReverse()
 			ButtonStop()
 				
 				
