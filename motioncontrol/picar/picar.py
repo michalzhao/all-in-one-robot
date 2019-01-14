@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 # author Ingmar Stapel
 # version 0.1 BETA
-# date 20140810 04:36 AM
+# date 20190113
 
 import webiopi
 from time import sleep
@@ -215,6 +215,7 @@ def getMotorSpeedStep():
 def getSteerMotorSpeedStep():
 	return 50		
 	
+@webiopi.macro
 def ButtonForward():
 	fowardAcc = 0
 	fowardAcc = getMotorSpeedStep()
@@ -229,6 +230,7 @@ def ButtonForward():
 	GPIO.pulseRatio(motorDrivePWM, valueDrive)
 
 	
+@webiopi.macro
 def ButtonReverse():
 	backwardAcc = 0
 	backwardAcc = getMotorSpeedStep()
@@ -243,6 +245,7 @@ def ButtonReverse():
 	GPIO.pulseRatio(motorDrivePWM, valueDrive)
 	
 
+@webiopi.macro
 def ButtonTurnLeft():
 	left()
 	GPIO.pulseRatio(motorSteerPWM, 0.7)	
@@ -256,7 +259,8 @@ def TurnLeft():
 def TurnRight():
 	right()
 	GPIO.pulseRatio(motorSteerPWM, 0.7)
-	
+
+@webiopi.macro	
 def ButtonTurnRight():
 	right()
 	GPIO.pulseRatio(motorSteerPWM, 0.7)
@@ -281,6 +285,7 @@ def ButtonTurnLeftOld():
 	GPIO.pulseRatio(motorSteerPWM, valueDrive)
 	
 	#print("LEFT: ",valueL,valueR,spotturn)	
+@webiopi.macro
 def ButtonTurnRightOld():
 	global motorSteerSpeed
 	global motorDriveSpeed
@@ -300,9 +305,11 @@ def ButtonTurnRightOld():
 	
 	#print("RIGHT: ",valueL,valueR, spotturn)		
 
+@webiopi.macro
 def ButtonFlashAll():
 	flashAll()
 
+@webiopi.macro
 def ButtonStop():	
 	stop()
 
